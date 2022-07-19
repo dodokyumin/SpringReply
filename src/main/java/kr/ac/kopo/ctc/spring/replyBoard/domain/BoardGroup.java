@@ -119,4 +119,11 @@ public class BoardGroup {
 		this.view = 0;
 	}
 
+	@Override
+	public String toString() {
+		return "BoardGroup [id=" + id + ", author=" + author + ", created=" + created + ", title=" + title
+				+ ", content=" + content + ", view=" + view + ", boardItems=" + boardItems + "]";
+	}
+
+	
 }

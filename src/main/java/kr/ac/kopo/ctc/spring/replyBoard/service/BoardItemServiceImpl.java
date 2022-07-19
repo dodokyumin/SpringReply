@@ -27,8 +27,8 @@ public class BoardItemServiceImpl implements BoardItemService {
 	BoardItemRepository boardItemRepository;
 
 	// Create
-	public void create(BoardItem replyItem) {
-		boardItemRepository.save(replyItem);
+	public void create(BoardItem boardItem) {
+		boardItemRepository.save(boardItem);
 	}
 
 	// Read
@@ -189,10 +189,9 @@ public class BoardItemServiceImpl implements BoardItemService {
 	}
 
 	@Override
-	public void createItem(String author, Date create, String title, BoardGroup boardGroup) {
+	public void createItem(String author, String title, BoardGroup boardGroup) {
 		//제일 마지각 no 값.
-		
-		BoardItem boardItem = new BoardItem(author, create, title, boardGroup);
+		BoardItem boardItem = new BoardItem(author, new Date(), title, boardGroup);
 		boardItemRepository.save(boardItem);
 	}
 

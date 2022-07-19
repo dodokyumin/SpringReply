@@ -46,19 +46,21 @@ public class BoardGroupServiceImpl implements BoardGroupService{
 	}
 
 	// Update
-	public void Update(BoardGroup boardGroup) {
-		BoardGroup oldBoardGroup = boardGroupRepository.findById(boardGroup.getId()).get();
+	@Override
+	public void updateGroup(int id, String title, String content) {
+		
+		BoardGroup oldBoardGroup = boardGroupRepository.findById(id).get();
 
-		oldBoardGroup.setTitle(boardGroup.getTitle());
+		oldBoardGroup.setTitle(title);
 		oldBoardGroup.setCreated(new Date());
-		oldBoardGroup.setView(boardGroup.getView());
+		oldBoardGroup.setContent(content);
 
 		boardGroupRepository.save(oldBoardGroup);
-
 	}
 
 	// Delete
-	public void DeleteOne(int id) {
+	@Override
+	public void deleteGroup(int id) {
 		boardGroupRepository.deleteById(id);
 	}
 
@@ -84,7 +86,7 @@ public class BoardGroupServiceImpl implements BoardGroupService{
 
 		// 총 레코드 수 조회
 		int totalCount = getRowCount();
-
+		
 		// >>
 		int totalPage;
 		if ((totalCount % COUNT_PER_PAGE) > 0) {
@@ -175,11 +177,13 @@ public class BoardGroupServiceImpl implements BoardGroupService{
 	}
 
 	@Override
-	public int plusViewcnt(int inputId) {
-		BoardGroup boardGroup = findById(inputId);
-		boardGroup.setView(boardGroup.getView() + 1);
+	public int plusViewcnt(int id) {
+		int newView = boardGroupRepository.findById(id).get().getView() + 1;
+		BoardGroup boardGroup = boardGroupRepository.findById(id).get();
+		boardGroup.setView(newView);
 		boardGroupRepository.save(boardGroup);
 		return 0;
+	
 	}
 
 	@Override
@@ -189,8 +193,8 @@ public class BoardGroupServiceImpl implements BoardGroupService{
 	}
 
 	@Override
-	public void createGroup(String author, Date created, String title, String content) {
-		BoardGroup boardGroup = new BoardGroup(author, created, title, content);
+	public void createGroup(String author, String title, String content) {
+		BoardGroup boardGroup = new BoardGroup(author, new Date(), title, content);
 		boardGroupRepository.save(boardGroup);
 	}
 

@@ -8,7 +8,7 @@
 <title>게시판</title>
 </head>
 <body> 
- 	<h1>스프링 게시판</h1>
+ 	<h1>스프링 뉴스</h1>
 	<table cellspacing=1 width=900 border=1>
 		<tr style="background-color: grey;">
 			<th width=100px>아이디</th>
@@ -28,23 +28,23 @@
 				<td style="text-align: center">${boardGroup.id}</td>
 				<td style="text-align: center">${boardGroup.author}</td>
 				<td style="text-align: center">${boardGroup.created}</td>
-				<td><a href="readOne.jsp?id=${boardGroup.id}">${boardGroup.title}</a></td>
+				<td><a href="readOne/${boardGroup.id}">${boardGroup.title}</a></td>
 				<td style="text-align: center">${boardGroup.view}</td>
 			</tr>
 		</c:forEach>
 	</table>
-	<%-- <div>
-		<input type="button" value="신규"
-			onclick="location.href='createOne.jsp'"> <input type="button"
-			value="초기화" onclick="location.href='deleteAll.jsp'"><br>
+		<input type="button" value="신규" onclick="location.href='/createOne'">
+		<input type="button" value="초기화" onclick="location.href='/deleteAll'"><br>
 
 
-		<c:if test="${rowCount != 0}">
+	<%--	<c:if test="${rowCount != 0}">
 			<c:if test="${pagination.ppPage != 0 && pagination.pPage != 0}">
 				<a href='index.jsp?strcPage=${pagination.getPpPage()}'> << </a>
 				<a href='index.jsp?strcPage=${pagination.getpPage()}'> < </a>
 			</c:if> 
-
+			시작과끝
+${pagination.firstPage} \n
+${pagination.lastPage}
 			<c:forEach var="noPage" begin="${pagination.firstPage}"
 				end="${pagination.lastPage}">
 				<c:if test="${noPage != 0}">
@@ -68,3 +68,4 @@
 	</div> --%>
 
 </body>
+</html>

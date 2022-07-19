@@ -33,9 +33,14 @@ public interface BoardGroupService {
 	// 조회수 가져오기
 	int getViewcnt(int inputId);
 
-	void createGroup(String author, Date created, String title, String content);
+	void createGroup(String author, String title, String content);
+
+	void updateGroup(int id, String title, String content);
+	
+	void deleteGroup(int id);
 	
 	public Page<BoardGroup> readAll(String strcPage);
-	
+
+	BoardGroup findById(int id);
 	
 }

@@ -30,6 +30,6 @@ public interface BoardItemService {
 	int getViewcnt(int inputId);
 
 	// 댓글 추가하기
-	void createItem(String author, Date create, String title, BoardGroup boardGroup);
+	void createItem(String author, String title, BoardGroup boardGroup);
 	
 }
