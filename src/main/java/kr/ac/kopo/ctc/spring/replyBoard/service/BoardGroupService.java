@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import kr.ac.kopo.ctc.spring.replyBoard.domain.BoardGroup;
+import kr.ac.kopo.ctc.spring.replyBoard.domain.BoardItem;
 
 public interface BoardGroupService {
 
@@ -41,6 +42,10 @@ public interface BoardGroupService {
 	
 	public Page<BoardGroup> readAll(String strcPage);
 
+	BoardGroup readOne(int id);
+
 	BoardGroup findById(int id);
+
+	List<BoardItem> findBoardItems(int id);
 	
 }

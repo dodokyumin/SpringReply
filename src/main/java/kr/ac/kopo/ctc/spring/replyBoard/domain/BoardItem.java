@@ -50,10 +50,10 @@ public class BoardItem {
 		// TODO Auto-generated constructor stub
 	}
 
-	public BoardGroup getBoardgroup() {
+	public BoardGroup getBoardGroup() {
 		return boardGroup;
 	}
-	public void setBoardgroup(BoardGroup boardGroup) {
+	public void setBoardGroup(BoardGroup boardGroup) {
 		this.boardGroup = boardGroup;
 	}
 	public int getId() {
@@ -87,5 +87,6 @@ public class BoardItem {
 	public void setView(int view) {
 		this.view = view;
 	}
+
 	
 }

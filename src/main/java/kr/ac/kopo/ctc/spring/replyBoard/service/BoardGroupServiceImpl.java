@@ -2,6 +2,7 @@ package kr.ac.kopo.ctc.spring.replyBoard.service;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -9,6 +10,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import kr.ac.kopo.ctc.spring.replyBoard.domain.BoardGroup;
+import kr.ac.kopo.ctc.spring.replyBoard.domain.BoardItem;
 import kr.ac.kopo.ctc.spring.replyBoard.repository.BoardGroupRepository;
 
 @Service
@@ -40,8 +42,13 @@ public class BoardGroupServiceImpl implements BoardGroupService{
 //		return boardGroup;
 //	}
 	// Read One
-	public BoardGroup findById(int id) {
+	@Override
+	public BoardGroup readOne(int id) {
 		plusViewcnt(id);
+		return boardGroupRepository.findById(id).get();
+	}
+	@Override
+	public BoardGroup findById(int id) {
 		return boardGroupRepository.findById(id).get();
 	}
 
@@ -196,6 +203,12 @@ public class BoardGroupServiceImpl implements BoardGroupService{
 	public void createGroup(String author, String title, String content) {
 		BoardGroup boardGroup = new BoardGroup(author, new Date(), title, content);
 		boardGroupRepository.save(boardGroup);
+	}
+	
+	@Override
+	public List<BoardItem> findBoardItems(int id) {
+		List<BoardItem> BoardItemList = boardGroupRepository.findById(id).get().getBoardItems();
+		return BoardItemList;
 	}
 
 }

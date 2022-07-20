@@ -4,17 +4,17 @@
 <html>
 <head>
 <meta charset="EUC-KR">
-<title>댓글 추가 완료</title>
+<title>댓글 삭제</title>
 </head>
 <body>
 	<script>
-	if(${boardGroup}){
-		if (window.confirm("댓글이 등록되었습니다.")) {
-			window.location.href = "/readOne/${boardGroup}";
+	if(${boardGroupId}){
+		if (window.confirm("댓글이 삭제되었습니다.")) {
+			window.location.href = "/readOne/${boardGroupId}";
 		}
 	} else {
-		window.confirm("댓글 등록 실패.")
+		window.confirm("댓글 삭제 실패.")
 	}
-	</script>
+</script>
 </body>
 </html>

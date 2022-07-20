@@ -195,5 +195,17 @@ public class BoardItemServiceImpl implements BoardItemService {
 		boardItemRepository.save(boardItem);
 	}
 
+	@Override
+	public void deleteItem(int id) {
+		BoardItem boardItem = boardItemRepository.findById(id).get();
+		boardItemRepository.delete(boardItem);
+	}
+
+
+	@Override
+	public BoardItem findItem(int id) {
+		return boardItemRepository.findById(id).get();
+	}
+
 
 }

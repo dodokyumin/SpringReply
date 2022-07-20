@@ -3,6 +3,7 @@ package kr.ac.kopo.ctc.spring.replyBoard.service;
 import java.util.Date;
 
 import kr.ac.kopo.ctc.spring.replyBoard.domain.BoardGroup;
+import kr.ac.kopo.ctc.spring.replyBoard.domain.BoardItem;
 
 public interface BoardItemService {
 
@@ -31,5 +32,11 @@ public interface BoardItemService {
 
 	// 댓글 추가하기
 	void createItem(String author, String title, BoardGroup boardGroup);
+
+	// 댓글 삭제하기
+	void deleteItem(int id);
+
+	// 댓글 아이디로 찾기(부모 원글 아이디 찾기 용)
+	BoardItem findItem(int id);
 	
 }

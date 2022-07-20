@@ -1,14 +1,14 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+	pageEncoding="EUC-KR"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="EUC-KR">
 <title>게시판</title>
 </head>
-<body> 
- 	<h1>스프링 뉴스</h1>
+<body>
+	<h1>스프링 뉴스</h1>
 	<table cellspacing=1 width=900 border=1>
 		<tr style="background-color: grey;">
 			<th width=100px>아이디</th>
@@ -23,7 +23,8 @@
 				<td colspan="6" style="text-align: center">게시글이 없습니다.</td>
 			</tr>
 		</c:if>
-		<c:forEach var="boardGroup" items="${boardGroupList.content}"> <!-- page타입을 받으면 .content로 한번 꺼내주고 나서 반복문을 돌려야한다. -->
+		<c:forEach var="boardGroup" items="${boardGroupList.content}">
+			<!-- page타입을 받으면 .content로 한번 꺼내주고 나서 반복문을 돌려야한다. -->
 			<tr>
 				<td style="text-align: center">${boardGroup.id}</td>
 				<td style="text-align: center">${boardGroup.author}</td>
@@ -33,8 +34,9 @@
 			</tr>
 		</c:forEach>
 	</table>
-		<input type="button" value="신규" onclick="location.href='/createOne'">
-		<input type="button" value="초기화" onclick="location.href='/deleteAll'"><br>
+	<input type="button" value="신규" onclick="location.href='/createOne'">
+	<input type="button" value="초기화" onclick="location.href='/deleteAll'">
+	<br>
 
 
 	<%--	<c:if test="${rowCount != 0}">

@@ -26,7 +26,8 @@ public class BoardGroupController {
 	@RequestMapping(value = "/readOne/{id}")
 	public String oneView(Model model, @PathVariable("id") String strId) {
 		int id = Integer.parseInt(strId);
-		model.addAttribute("boardGroup", boardGroupService.findById(id));
+		model.addAttribute("boardGroup", boardGroupService.readOne(id));
+		model.addAttribute("boardItemList", boardGroupService.findBoardItems(id));
 		return "readOne";
 	}
 	
