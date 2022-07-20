@@ -51,6 +51,9 @@ public interface BoardGroupService {
 	
 	//전체 데이터 조회
 	int getRowCount();
+
+	//검색 기능
+	Page<BoardGroup> searchBoardGroup(String searchStr);
 	
 	
 }

@@ -46,6 +46,9 @@ public interface BoardGroupRepository extends JpaRepository<BoardGroup, Integer>
 
 	Page<BoardGroup> findAllByOrderByIdDesc(Pageable pageable);
 	
+	//검색기능
+	List<BoardGroup> findByTitleContains(String searchStr);
+	
 //	@Query(value="SELECT COUNT(*) FROM board_group", nativeQuery=true)
 //    public int rowCnt;
 	

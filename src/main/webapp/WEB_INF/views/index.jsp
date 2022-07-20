@@ -1,41 +1,41 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="EUC-KR">
-<title>°Ô½ÃÆÇ</title>
+<title>ê²Œì‹œíŒ</title>
 </head>
 <body>
-	<h1>½ºÇÁ¸µ ´º½º</h1>
+	<h1>ìŠ¤í”„ë§ ë‰´ìŠ¤</h1>
 	<table cellspacing=1 width=900 border=1>
 		<tr style="background-color: grey;">
-			<th width=100px>¾ÆÀÌµğ</th>
-			<th width=100px>±Û¾´ÀÌ</th>
-			<th width=100px>µî·ÏÀÏ</th>
-			<th width=400px>±ÛÁ¦¸ñ</th>
-			<th width=100px>Á¶È¸¼ö</th>
+			<th width=100px>ì•„ì´ë””</th>
+			<th width=100px>ê¸€ì“´ì´</th>
+			<th width=100px>ë“±ë¡ì¼</th>
+			<th width=400px>ê¸€ì œëª©</th>
+			<th width=100px>ì¡°íšŒìˆ˜</th>
 		</tr>
 
 		<c:if test="${boardGroupList == null}">
 			<tr>
-				<td colspan="6" style="text-align: center">°Ô½Ã±ÛÀÌ ¾ø½À´Ï´Ù.</td>
+				<td colspan="6" style="text-align: center">ê²Œì‹œê¸€ì´ ì—†ìŠµë‹ˆë‹¤.</td>
 			</tr>
 		</c:if>
 		<c:forEach var="boardGroup" items="${boardGroupList.content}">
-			<!-- pageÅ¸ÀÔÀ» ¹ŞÀ¸¸é .content·Î ÇÑ¹ø ²¨³»ÁÖ°í ³ª¼­ ¹İº¹¹®À» µ¹·Á¾ßÇÑ´Ù. -->
+			<!-- pageíƒ€ì…ì„ ë°›ìœ¼ë©´ .contentë¡œ í•œë²ˆ êº¼ë‚´ì£¼ê³  ë‚˜ì„œ ë°˜ë³µë¬¸ì„ ëŒë ¤ì•¼í•œë‹¤. -->
 			<tr>
 				<td style="text-align: center">${boardGroup.id}</td>
 				<td style="text-align: center">${boardGroup.author}</td>
 				<td style="text-align: center">${boardGroup.created}</td>
-				<td><a href="readOne/${boardGroup.id}">${boardGroup.title}</a></td>
+				<td><a href="/readOne/${boardGroup.id}">${boardGroup.title}</a></td>
 				<td style="text-align: center">${boardGroup.view}</td>
 			</tr>
 		</c:forEach>
 	</table>
-	<input type="button" value="½Å±Ô" onclick="location.href='/createOne'">
-	<input type="button" value="ÃÊ±âÈ­" onclick="location.href='/deleteAll'">
+	<input type="button" value="ì‹ ê·œ" onclick="location.href='/createOne'">
+	<input type="button" value="ì´ˆê¸°í™”" onclick="location.href='/deleteAll'">
 	<br>
 	<c:if test="${boardGroupTotalCount != 0}">
 		<c:if test="${pagination.ppPage != 0 && pagination.pPage != 0}">
@@ -43,7 +43,7 @@
 			<a href='/boardGroup/${pagination.pPage}'> < </a>
 		</c:if>
 		<c:forEach var="noPage" begin="${pagination.firstPage}"
-				end="${pagination.lastPage}">
+			end="${pagination.lastPage}">
 			<c:if test="${noPage != 0}">
 				<c:choose>
 					<c:when test="${noPage == pagination.cPage}">
@@ -56,13 +56,15 @@
 				</c:choose>
 			</c:if>
 		</c:forEach>
-
+		
 		<c:if test="${pagination.nnPage != 0 && pagination.nPage != 0}">
 			<a href='/boardGroup/${pagination.nPage}'> > </a>
 			<a href='/boardGroup/${pagination.nnPage}'> >> </a>
 		</c:if>
 	</c:if>
-
-
+	<br>
+	<form action="/boardGroup/search" method="post">
+		<input type="text" name="title"> <input type="submit" value="ê²€ìƒ‰">
+	</form>
 </body>
 </html>

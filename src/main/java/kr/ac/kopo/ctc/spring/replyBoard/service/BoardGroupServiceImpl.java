@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
@@ -93,7 +94,7 @@ public class BoardGroupServiceImpl implements BoardGroupService {
 
 		Pagination p = new Pagination();
 
-		// 총 레코드 수 조회
+		// 총 레코드 수 조회 //능동적으로 키워드가 있는 것 없는 것 바꿔줘야함.
 		int totalCount = (int) readAll(strCurrPage).getTotalElements();
 
 		// >>
@@ -193,7 +194,6 @@ public class BoardGroupServiceImpl implements BoardGroupService {
 		boardGroup.setView(newView);
 		boardGroupRepository.save(boardGroup);
 		return 0;
-
 	}
 
 	@Override
@@ -208,10 +208,17 @@ public class BoardGroupServiceImpl implements BoardGroupService {
 		boardGroupRepository.save(boardGroup);
 	}
 
-	@Override
+	@Override 
 	public List<BoardItem> findBoardItems(int id) {
 		List<BoardItem> BoardItemList = boardGroupRepository.findById(id).get().getBoardItems();
 		return BoardItemList;
+	}
+
+	@Override
+	public Page<BoardGroup> searchBoardGroup(String searchStr) {
+		List<BoardGroup> BoardGroupList = boardGroupRepository.findByTitleContains(searchStr);
+		Page<BoardGroup> BoardGroupListPage = new PageImpl<>(BoardGroupList);
+		return BoardGroupListPage;
 	}
 
 }
