@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Query;
 
 import kr.ac.kopo.ctc.spring.replyBoard.domain.BoardGroup;
 import kr.ac.kopo.ctc.spring.replyBoard.domain.BoardItem;
@@ -17,7 +18,7 @@ public interface BoardGroupService {
 	//Page<ReplyItem> findAllPage(int pageCnt);
 
 	// 페이지 불러오기
-	Pagination getPagination(String strcPage);
+	Pagination getPagination(String strCurrPage);
 
 //	// cPage null 체크
 //	String checkcPage(String strcPage);
@@ -47,5 +48,9 @@ public interface BoardGroupService {
 	BoardGroup findById(int id);
 
 	List<BoardItem> findBoardItems(int id);
+	
+	//전체 데이터 조회
+	int getRowCount();
+	
 	
 }

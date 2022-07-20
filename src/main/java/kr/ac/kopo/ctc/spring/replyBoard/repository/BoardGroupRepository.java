@@ -8,6 +8,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import kr.ac.kopo.ctc.spring.replyBoard.domain.BoardGroup;
@@ -44,4 +45,9 @@ public interface BoardGroupRepository extends JpaRepository<BoardGroup, Integer>
 //	int deleteLowerLevels(int rootid, int start, int end);
 
 	Page<BoardGroup> findAllByOrderByIdDesc(Pageable pageable);
+	
+//	@Query(value="SELECT COUNT(*) FROM board_group", nativeQuery=true)
+//    public int rowCnt;
+	
+	
 }

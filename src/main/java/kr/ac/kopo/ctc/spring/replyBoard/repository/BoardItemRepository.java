@@ -8,6 +8,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.jpa.repository.Query;
 
 import kr.ac.kopo.ctc.spring.replyBoard.domain.BoardItem;
 import net.bytebuddy.description.annotation.AnnotationValue.Sort;
@@ -39,4 +40,5 @@ public interface BoardItemRepository extends JpaRepository<BoardItem, Integer>, 
 //	int deleteLowerLevels(int rootid, int start, int end);
 //
 //	Page<BoardItem> findAllByOrderByNoAsc(PageRequest pageable);
+	
 }

@@ -37,37 +37,32 @@
 	<input type="button" value="신규" onclick="location.href='/createOne'">
 	<input type="button" value="초기화" onclick="location.href='/deleteAll'">
 	<br>
-
-
-	<%--	<c:if test="${rowCount != 0}">
-			<c:if test="${pagination.ppPage != 0 && pagination.pPage != 0}">
-				<a href='index.jsp?strcPage=${pagination.getPpPage()}'> << </a>
-				<a href='index.jsp?strcPage=${pagination.getpPage()}'> < </a>
-			</c:if> 
-			시작과끝
-${pagination.firstPage} \n
-${pagination.lastPage}
-			<c:forEach var="noPage" begin="${pagination.firstPage}"
-				end="${pagination.lastPage}">
-				<c:if test="${noPage != 0}">
-					<c:choose>
-						<c:when test="${noPage == pagination.cPage}">
-							<b><a style='text-decoration: underline;'
-								href='index.jsp?strcPage=${noPage}'>${noPage}</a></b>
-						</c:when>
-						<c:when test="${noPage != pagination.getcPage()}">
-							<a href='index.jsp?strcPage=${noPage}'>${noPage}</a>
-						</c:when>
-					</c:choose>
-				</c:if>
-			</c:forEach>
-
-			<c:if test="${pagination.nnPage != 0 && pagination.nPage != 0}">
-				<a href='index.jsp?strcPage=${pagination.nPage}'> > </a>
-				<a href='index.jsp?strcPage=${pagination.nnPage}'> >> </a>
-			</c:if>
+	<c:if test="${boardGroupTotalCount != 0}">
+		<c:if test="${pagination.ppPage != 0 && pagination.pPage != 0}">
+			<a href='/boardGroup/${pagination.ppPage}'> << </a>
+			<a href='/boardGroup/${pagination.pPage}'> < </a>
 		</c:if>
-	</div> --%>
+		<c:forEach var="noPage" begin="${pagination.firstPage}"
+				end="${pagination.lastPage}">
+			<c:if test="${noPage != 0}">
+				<c:choose>
+					<c:when test="${noPage == pagination.cPage}">
+						<b><a style='text-decoration: underline;'
+							href='/boardGroup/${noPage}'>${noPage}</a></b>
+					</c:when>
+					<c:when test="${noPage != pagination.getcPage()}">
+						<a href='/boardGroup/${noPage}'>${noPage}</a>
+					</c:when>
+				</c:choose>
+			</c:if>
+		</c:forEach>
+
+		<c:if test="${pagination.nnPage != 0 && pagination.nPage != 0}">
+			<a href='/boardGroup/${pagination.nPage}'> > </a>
+			<a href='/boardGroup/${pagination.nnPage}'> >> </a>
+		</c:if>
+	</c:if>
+
 
 </body>
 </html>
