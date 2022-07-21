@@ -10,7 +10,7 @@
 	<script>
 	if(${boardGroup}){
 		if (window.confirm("댓글이 등록되었습니다.")) {
-			window.location.href = "/readOne/${boardGroup}";
+			window.location.href = "/readOne?strId=${boardGroup}";
 		}
 	} else {
 		window.confirm("댓글 등록 실패.")

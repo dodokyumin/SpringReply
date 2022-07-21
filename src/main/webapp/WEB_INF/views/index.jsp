@@ -29,7 +29,7 @@
 				<td style="text-align: center">${boardGroup.id}</td>
 				<td style="text-align: center">${boardGroup.author}</td>
 				<td style="text-align: center">${boardGroup.created}</td>
-				<td><a href="/readOne/${boardGroup.id}">${boardGroup.title}</a></td>
+				<td><a href="/readOne?strId=${boardGroup.id}">${boardGroup.title}</a></td>
 				<td style="text-align: center">${boardGroup.view}</td>
 			</tr>
 		</c:forEach>

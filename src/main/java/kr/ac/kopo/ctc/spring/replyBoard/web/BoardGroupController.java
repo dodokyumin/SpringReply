@@ -38,13 +38,13 @@ public class BoardGroupController {
 		return "index";
 	}
 	
-	@RequestMapping(value = "/readOne/{id}")
-	public String oneView(Model model, @PathVariable("id") String strId) {
+	@RequestMapping(value = "/readOne")
+	public String oneView(Model model, @RequestParam(value="strId") String strId) {
 		System.out.println(strId);
-		int id = Integer.parseInt(strId);
+		int id = Integer.parseInt(strId); //실행 1번, 실행 3번
 		model.addAttribute("boardGroup", boardGroupService.readOne(id));
 		model.addAttribute("boardItemList", boardGroupService.findBoardItems(id));
-		System.out.println("Dfd");
+		System.out.println("Dfd"); //실행 2번
 		return "readOne";
 	}
 	
@@ -88,11 +88,8 @@ public class BoardGroupController {
 	public String searchGroup(Model model, @RequestParam(value = "title") String title, @RequestParam(value = "strCurrPage") String strCurrPage) {
 		
 		//여기서 page를 넣어야함
-//		Page<BoardGroup> searchBoardGroupListPage = boardGroupService.searchBoardGroup(strCurrPage, title);
 		Page<BoardGroup> searchBoardGroupListPage = boardGroupService.searchBoardGroupList(strCurrPage, title);
-		
-		System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ : " + strCurrPage);
-		
+				
 		Pagination pagination = boardGroupService.getPagination(strCurrPage, title);
 		
 		
