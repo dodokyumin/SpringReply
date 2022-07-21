@@ -8,7 +8,7 @@
 <title>게시판</title>
 </head>
 <body>
-	<h1>스프링 뉴스</h1>
+	<h1><a href="http://localhost:8090/boardGroup">스프링 뉴스</a></h1>
 	<table cellspacing=1 width=900 border=1>
 		<tr style="background-color: grey;">
 			<th width=100px>아이디</th>
@@ -62,9 +62,40 @@
 			<a href='/boardGroup/${pagination.nnPage}'> >> </a>
 		</c:if>
 	</c:if>
+	
+	
+	
+	<!-- 키워드 있을 때 -->
+	<c:if test="${boardGroupTotalCountKeyword != 0}">
+		<c:if test="${pagination.ppPage != 0 && pagination.pPage != 0}">
+			<a href='/boardGroup/search?title=${keyword}&strCurrPage=${pagination.ppPage}'> << </a>
+			<a href='/boardGroup/search?title=${keyword}&strCurrPage=${pagination.pPage}'> < </a>
+		</c:if>
+		<c:forEach var="noPage" begin="${pagination.firstPage}"
+			end="${pagination.lastPage}">
+			<c:if test="${noPage != 0}">
+				<c:choose>
+					<c:when test="${noPage == pagination.cPage}">
+						<b><a style='text-decoration: underline;'
+							href='/boardGroup/search?title=${keyword}&strCurrPage=${noPage}'>${noPage}</a></b>
+					</c:when>
+					<c:when test="${noPage != pagination.getcPage()}">
+						<a href='/boardGroup/search?title=${keyword}&strCurrPage=${noPage}'>${noPage}</a>
+					</c:when>
+				</c:choose>
+			</c:if>
+		</c:forEach>
+		
+		<c:if test="${pagination.nnPage != 0 && pagination.nPage != 0}">
+			<a href='/boardGroup/search?title=${keyword}&strCurrPage=${pagination.nPage}'> > </a>
+			<a href='/boardGroup/search?title=${keyword}&strCurrPage=${pagination.nnPage}'> >> </a>
+		</c:if>
+	</c:if>
 	<br>
-	<form action="/boardGroup/search" method="post">
-		<input type="text" name="title"> <input type="submit" value="검색">
+	<form action="/boardGroup/search" method="get">
+		<input type="hidden" name="strCurrPage" value="1">
+		<input type="text" name="title">
+		<input type="submit" value="검색">
 	</form>
 </body>
 </html>

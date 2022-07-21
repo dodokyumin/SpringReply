@@ -1,7 +1,5 @@
 package kr.ac.kopo.ctc.spring.replyBoard.service;
 
-import java.util.Date;
-
 import kr.ac.kopo.ctc.spring.replyBoard.domain.BoardGroup;
 import kr.ac.kopo.ctc.spring.replyBoard.domain.BoardItem;
 

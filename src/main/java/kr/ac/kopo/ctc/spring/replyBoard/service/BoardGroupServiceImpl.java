@@ -6,9 +6,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 import kr.ac.kopo.ctc.spring.replyBoard.domain.BoardGroup;
@@ -70,24 +68,11 @@ public class BoardGroupServiceImpl implements BoardGroupService {
 		boardGroupRepository.deleteById(id);
 	}
 
-	// Page
-//	public Page<ReplyItem> findAllPage(int pageNum) {
-//		PageRequest pageable = PageRequest.of(pageNum, countPerPage);
-//		return replyItemRepository.findAll(pageable);
-//	}
-//
-	// Search + Page
-//	public Page<ReplyItem> findAllSearchPage(int firstContent, int lastContent, String searchTitle) {
-//		PageRequest pageable = PageRequest.of(firstContent, lastContent);
-//		Page<ReplyItem> page = replyItemRepository.findAllByTitleContaining(searchTitle, pageable);
-//		return page;
-//	}
-
 	// 기존의 대댓글 게시판에서 가져온 코드
 	@Override
 	public Pagination getPagination(String strCurrPage) {
 		int currPage = checkCPage(strCurrPage);
-		
+
 		if (currPage < 1) {
 			currPage = 1;
 		}
@@ -151,21 +136,13 @@ public class BoardGroupServiceImpl implements BoardGroupService {
 
 		return p;
 	}
-	
+
 	@Override
 	public int getRowCount() {
 		int rowcount = (int) boardGroupRepository.count();
 		return rowcount;
 	}
 
-//	@Override
-//	public String checkcPage(String strcPage) {
-//		if (strcPage == null) {
-//			strcPage = "1";
-//		}
-//		return strcPage;
-//	}
-	
 	@Override
 	public String newDate() {
 		Date nowDate = new Date();
@@ -182,7 +159,7 @@ public class BoardGroupServiceImpl implements BoardGroupService {
 		if (strcPage == null) {
 			cPage = 0;
 		} else {
-			cPage = Integer.parseInt(strcPage) -1;
+			cPage = Integer.parseInt(strcPage) - 1;
 		}
 		return cPage;
 	}
@@ -208,17 +185,91 @@ public class BoardGroupServiceImpl implements BoardGroupService {
 		boardGroupRepository.save(boardGroup);
 	}
 
-	@Override 
+	@Override
 	public List<BoardItem> findBoardItems(int id) {
 		List<BoardItem> BoardItemList = boardGroupRepository.findById(id).get().getBoardItems();
 		return BoardItemList;
 	}
 
 	@Override
-	public Page<BoardGroup> searchBoardGroup(String searchStr) {
-		List<BoardGroup> BoardGroupList = boardGroupRepository.findByTitleContains(searchStr);
-		Page<BoardGroup> BoardGroupListPage = new PageImpl<>(BoardGroupList);
-		return BoardGroupListPage;
+	public Page<BoardGroup> searchBoardGroupList(String strcurrPage, String searchStr) {
+		int cPage = checkCPage(strcurrPage);
+		PageRequest pageable = PageRequest.of(cPage, COUNT_PER_PAGE);
+		
+		Page<BoardGroup> BoardGroupList = boardGroupRepository.findByTitleContainsOrderByIdDesc(searchStr, pageable);
+		
+		return BoardGroupList;
 	}
+
+	// 키워드를 받는 페이지네이션
+	@Override
+	public Pagination getPagination(String strCurrPage, String keyword) {
+		int currPage = checkCPage(strCurrPage);
+
+		if (currPage < 1) {
+			currPage = 1;
+		}
+
+		Pagination p = new Pagination();
+
+		// 총 레코드 수 조회 //능동적으로 키워드가 있는 것 없는 것 바꿔줘야함.
+		int totalCount = boardGroupRepository.findByTitleContains(keyword).size();
+		
+		// >>
+		int totalPage;
+		if ((totalCount % COUNT_PER_PAGE) > 0) {
+			totalPage = totalCount / COUNT_PER_PAGE + 1;
+		} else {
+			totalPage = totalCount / COUNT_PER_PAGE;
+		}
+
+		// currPage
+		if (currPage > totalPage) {
+			currPage = totalPage;
+		} else if (currPage < 1) {
+			currPage = 1;
+		}
+		p.setcPage(currPage);
+
+		// pageSize
+		p.setPageSize(PAGE_SIZE);
+
+		// <<
+		p.setPpPage(1);
+		// >>
+		p.setNnPage(totalPage);
+
+		// >
+		if ((totalPage - currPage) < PAGE_SIZE) {
+			p.setnPage(totalPage);
+		} else {
+			p.setnPage((currPage / PAGE_SIZE + 1) * PAGE_SIZE + 1);
+		}
+		// <
+		if ((currPage / PAGE_SIZE) == 0) {
+			p.setpPage(1);
+		} else {
+			p.setpPage((currPage - PAGE_SIZE / PAGE_SIZE)); // 이 부분 문데
+		}
+
+		// 첫 페이지 번호
+		int startPage = (currPage / PAGE_SIZE) * PAGE_SIZE + 1;
+		if ((currPage % PAGE_SIZE) == 0) {
+			startPage -= PAGE_SIZE;
+		}
+		p.setFirstPage(startPage);
+
+		// 마지막 페이지 번호
+		int lastPage = (startPage + PAGE_SIZE - 1) >= totalPage ? totalPage : (startPage + PAGE_SIZE - 1);
+		p.setLastPage(lastPage);
+
+		if (lastPage >= totalPage) {
+			p.setLastPage(totalPage);
+		}
+
+		return p;
+	}
+
+
 
 }

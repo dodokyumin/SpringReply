@@ -1,11 +1,8 @@
 package kr.ac.kopo.ctc.spring.replyBoard.service;
 
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.repository.Query;
 
 import kr.ac.kopo.ctc.spring.replyBoard.domain.BoardGroup;
 import kr.ac.kopo.ctc.spring.replyBoard.domain.BoardItem;
@@ -15,13 +12,10 @@ public interface BoardGroupService {
 	final int COUNT_PER_PAGE = 10;
 	final int PAGE_SIZE = 10;
 
-	//Page<ReplyItem> findAllPage(int pageCnt);
-
 	// 페이지 불러오기
 	Pagination getPagination(String strCurrPage);
-
-//	// cPage null 체크
-//	String checkcPage(String strcPage);
+	// 키워드 있을 때
+	Pagination getPagination(String strCurrPage, String searchStr);
 
 	// 새로운 날짜 받기
 	String newDate();
@@ -52,8 +46,8 @@ public interface BoardGroupService {
 	//전체 데이터 조회
 	int getRowCount();
 
-	//검색 기능
-	Page<BoardGroup> searchBoardGroup(String searchStr);
+	//검색 기능 + page
+	Page<BoardGroup> searchBoardGroupList(String strcurrPage, String keyword);
 	
 	
 }

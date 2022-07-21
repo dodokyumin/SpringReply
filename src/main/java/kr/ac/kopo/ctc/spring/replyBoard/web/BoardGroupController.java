@@ -1,18 +1,15 @@
 package kr.ac.kopo.ctc.spring.replyBoard.web;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.ac.kopo.ctc.spring.replyBoard.domain.BoardGroup;
-import kr.ac.kopo.ctc.spring.replyBoard.domain.BoardItem;
 import kr.ac.kopo.ctc.spring.replyBoard.service.BoardGroupService;
 import kr.ac.kopo.ctc.spring.replyBoard.service.Pagination;
 
@@ -32,6 +29,10 @@ public class BoardGroupController {
 		// readAll(strCurrPage)로 해당 페이지의 totalElements만 가져오는 것이 아니라, getTotalElements는 page타입의 내장 함수로 slice하기 전의 토탈 갯수를 cnt하는 변수도 내포하고 있기 때문에. 
 		//readAll(strCurrPage)에 이어서 getTotalElements를 하여도 총 갯수가 나오는 것이다.
 		model.addAttribute("boardGroupTotalCount", boardGroupService.readAll(strCurrPage).getTotalElements());
+		
+		//jsp 페이지네이션 if조건 발동위한 쓰레기값
+		model.addAttribute("boardGroupTotalCountKeyword", 0);
+		
 		model.addAttribute("pagination", pagination);
 
 		return "index";
@@ -84,18 +85,26 @@ public class BoardGroupController {
 	}
 	
 	@RequestMapping(value = "/boardGroup/search")
-	public String searchGroup(Model model, @ModelAttribute BoardGroup boardGroup) {
+	public String searchGroup(Model model, @RequestParam(value = "title") String title, @RequestParam(value = "strCurrPage") String strCurrPage) {
 		
-		Page<BoardGroup> searchBoardGroupListPage = boardGroupService.searchBoardGroup(boardGroup.getTitle());
-		//null예외처리를 해주었으므로 그냥""는 오류남.
-		String strCurrPage = null;
-		Pagination pagination = boardGroupService.getPagination(strCurrPage);
+		//여기서 page를 넣어야함
+//		Page<BoardGroup> searchBoardGroupListPage = boardGroupService.searchBoardGroup(strCurrPage, title);
+		Page<BoardGroup> searchBoardGroupListPage = boardGroupService.searchBoardGroupList(strCurrPage, title);
+		
+		System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ : " + strCurrPage);
+		
+		Pagination pagination = boardGroupService.getPagination(strCurrPage, title);
 		
 		
 		model.addAttribute("boardGroupList", searchBoardGroupListPage);
 		
 		//검색 후 총 갯수를 가져와야할 것
-		model.addAttribute("boardGroupTotalCount", searchBoardGroupListPage.getNumberOfElements());
+		model.addAttribute("boardGroupTotalCountKeyword", searchBoardGroupListPage.getNumberOfElements());
+		
+		//jsp 페이지네이션 if조건 발동위한 쓰레기값
+		model.addAttribute("boardGroupTotalCount", 0);
+		
+		model.addAttribute("keyword", title);
 		
 		//pagination의  totalCount가 검색한 내용만 가져오는 것으로 능동적으로 바뀌게 한 후의 pagination이어야할 것.
 		model.addAttribute("pagination", pagination);

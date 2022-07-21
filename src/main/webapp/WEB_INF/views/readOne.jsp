@@ -68,7 +68,8 @@
 			<!-- page타입을 받으면 .content로 한번 꺼내주고 나서 반복문을 돌려야한다. -->
 			<tr>
 				<td width=100px style="text-align: center; background-color: silver;">${boardItem.author}</td>
-				<td width=400px style="text-align: center">${boardItem.title}</td>
+				<td width=300px style="text-align: center">${boardItem.title}</td>
+				<td width=100px style="text-align: center">${boardItem.created}</td>
 				<td width=100px style="text-align: center"><input type="button" 
 					onclick="location.href='/deleteReply/${boardItem.id}'" value="삭제"></td>
 			</tr>
