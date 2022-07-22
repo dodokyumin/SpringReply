@@ -11,13 +11,7 @@ public interface BoardItemService {
 	//Page<ReplyItem> findAllPage(int pageCnt);
 
 	// 페이지 불러오기
-	Pagination getPagination(String strcPage);
-
-	// cPage null 체크
-	String checkcPage(String strcPage);
-
-	// 새로운 날짜 받기
-	String newDate();
+	//Pagination getPagination(int cPage, int PAGE_SIZE, int COUNT_PER_PAGE);
 
 	// 페이지 null 체크
 	public int checkCPage(String strcPage);

@@ -20,11 +20,14 @@ public class BoardGroupController {
 	private BoardGroupService boardGroupService;
 
 	//매핑 밸류 두가지를 정하여 default경로와 cPage 파라미터 받았을 때 모두 매핑해주기.
-	@RequestMapping(value = {"/boardGroup/{strCurrPage}","/boardGroup" })
-	public String list(Model model, @PathVariable(required = false) String strCurrPage) {
-		//string은 null이여도 바로 에러를 받지 않기 때문에 String으ㅜ로 strcurrPage를 받자.
-		Pagination pagination = boardGroupService.getPagination(strCurrPage);
-		model.addAttribute("boardGroupList", boardGroupService.readAll(strCurrPage));
+	@RequestMapping(value = "/boardGroup")
+	public String list(Model model, @RequestParam(value="strCurrPage" ,required = false, defaultValue = "1") String strCurrPage) {
+		//string은 null이여도 바로 에러를 받지 않기 때문에 String으로 strcurrPage를 받자.
+		
+		//Page<BoardGroup> paginationList = boardGroupService.currPagination(strCurrPage);
+		int cPage = Integer.parseInt(strCurrPage);
+		Pagination pagination = boardGroupService.getPagination(cPage);
+		model.addAttribute("boardGroupList", boardGroupService.currPagination(strCurrPage));
 		
 		// readAll(strCurrPage)로 해당 페이지의 totalElements만 가져오는 것이 아니라, getTotalElements는 page타입의 내장 함수로 slice하기 전의 토탈 갯수를 cnt하는 변수도 내포하고 있기 때문에. 
 		//readAll(strCurrPage)에 이어서 getTotalElements를 하여도 총 갯수가 나오는 것이다.
@@ -32,7 +35,7 @@ public class BoardGroupController {
 		
 		//jsp 페이지네이션 if조건 발동위한 쓰레기값
 		model.addAttribute("boardGroupTotalCountKeyword", 0);
-		
+
 		model.addAttribute("pagination", pagination);
 
 		return "index";
@@ -40,11 +43,9 @@ public class BoardGroupController {
 	
 	@RequestMapping(value = "/readOne")
 	public String oneView(Model model, @RequestParam(value="strId") String strId) {
-		System.out.println(strId);
-		int id = Integer.parseInt(strId); //실행 1번, 실행 3번
+		int id = Integer.parseInt(strId);
 		model.addAttribute("boardGroup", boardGroupService.readOne(id));
 		model.addAttribute("boardItemList", boardGroupService.findBoardItems(id));
-		System.out.println("Dfd"); //실행 2번
 		return "readOne";
 	}
 	
@@ -89,8 +90,8 @@ public class BoardGroupController {
 		
 		//여기서 page를 넣어야함
 		Page<BoardGroup> searchBoardGroupListPage = boardGroupService.searchBoardGroupList(strCurrPage, title);
-				
-		Pagination pagination = boardGroupService.getPagination(strCurrPage, title);
+		int cPage = Integer.parseInt(strCurrPage);
+		Pagination pagination = boardGroupService.getPagination(cPage, title);
 		
 		
 		model.addAttribute("boardGroupList", searchBoardGroupListPage);
