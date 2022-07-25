@@ -76,7 +76,7 @@ public class BoardGroupController {
 	@RequestMapping(value = "/UpdateDone/{id}")
 	public String updateDone(Model model, @ModelAttribute BoardGroup boardGroup) {
 		boardGroupService.updateGroup(boardGroup.getId(), boardGroup.getTitle(), boardGroup.getContent());
-		model.addAttribute("boardGroup", 1);
+		model.addAttribute("boardGroupId", boardGroup.getId());
 		return "UpdateDone";
 	}
 

@@ -8,9 +8,9 @@
 </head>
 <body>
 <script>
-	if(${boardGroup}){
+	if(${boardGroupId}){
 		if (window.confirm("뉴스가 수정되었습니다.")) {
-			window.location.href = "/boardGroup";
+			window.location.href = "/readOne?strId=${boardGroupId}";
 		}
 	} else {
 		window.confirm("뉴스 수정 실패.")

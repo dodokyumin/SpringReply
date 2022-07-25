@@ -22,7 +22,7 @@
 			<tr>
 				<td width=100px>글쓴이</td>
 				<td><input type="text" placeholder="제목을 입력하세요." name="author"
-					pattern='^[가-힣a-zA-Z0-9\s?~!@#$%^&*()/ -]+$' required></td>
+					pattern='^[ㄱ-ㅎ가-힣a-zA-Z0-9\s?~!@#$%^&*()/ -]+$' required></td>
 			</tr>
 			<%-- 	<tr>
 				<td width=100px>일자</td>
@@ -31,7 +31,7 @@
 			<tr>
 				<td width=100px>글내용</td>
 				<td><input type="text" placeholder="제목을 입력하세요." name="title"
-					pattern='^[가-힣a-zA-Z0-9\s?~!@#$%^&*()/ -]+$' required></td>
+					pattern='^[ㄱ-ㅎ가-힣a-zA-Z0-9\s?~!@#$,.%^&*()/ -]+$' required></td>
 			</tr>
 			</table>
 		<input type="submit" value="등록"> <input type="button"

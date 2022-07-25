@@ -33,7 +33,7 @@
 				<td width=100px>글내용</td>
 				<td><textarea style="width: 500px; height: 300px;"
 						name="content" placeholder="내용을 입력하세요."
-						pattern='^[ㄱ-ㅎ가-힣a-zA-Z0-9\s?~!@#$%^&*()/ -]+$' required></textarea></td>
+						pattern='^[ㄱ-ㅎ가-힣a-zA-Z0-9\s?~!@#$%^&*()/. -]+$' required></textarea></td>
 			</tr>
 		</table>
 		<input type="submit" value="등록"> <input type="button"
