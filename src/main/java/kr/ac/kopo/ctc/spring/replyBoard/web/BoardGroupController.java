@@ -37,7 +37,10 @@ public class BoardGroupController {
 		model.addAttribute("boardGroupTotalCountKeyword", 0);
 
 		model.addAttribute("pagination", pagination);
-
+		
+		//두 페이지네이션 중 하나만 실행하기 위한 구별 신호
+		model.addAttribute("isItSearch", false);
+		
 		return "index";
 	}
 	
@@ -87,11 +90,11 @@ public class BoardGroupController {
 	
 	@RequestMapping(value = "/boardGroup/search")
 	public String searchGroup(Model model, @RequestParam(value = "title") String title, @RequestParam(value = "strCurrPage") String strCurrPage) {
-		
 		//여기서 page를 넣어야함
 		Page<BoardGroup> searchBoardGroupListPage = boardGroupService.searchBoardGroupList(strCurrPage, title);
 		int cPage = Integer.parseInt(strCurrPage);
 		Pagination pagination = boardGroupService.getPagination(cPage, title);
+		
 		
 		
 		model.addAttribute("boardGroupList", searchBoardGroupListPage);
@@ -99,13 +102,17 @@ public class BoardGroupController {
 		//검색 후 총 갯수를 가져와야할 것
 		model.addAttribute("boardGroupTotalCountKeyword", searchBoardGroupListPage.getNumberOfElements());
 		
-		//jsp 페이지네이션 if조건 발동위한 쓰레기값
-		model.addAttribute("boardGroupTotalCount", 0);
+		//totalCount가 0이면 게시글 없음을 알리기 위해
+		model.addAttribute("boardGroupTotalCount", searchBoardGroupListPage.getContent().size());
+		
+		//두 페이지네이션 중 하나만 실행하기 위한 구별 신호
+		model.addAttribute("isItSearch", true);
 		
 		model.addAttribute("keyword", title);
 		
 		//pagination의  totalCount가 검색한 내용만 가져오는 것으로 능동적으로 바뀌게 한 후의 pagination이어야할 것.
 		model.addAttribute("pagination", pagination);
+
 		return "index";
 	}
 

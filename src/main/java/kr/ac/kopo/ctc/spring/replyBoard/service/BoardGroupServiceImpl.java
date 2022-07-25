@@ -1,6 +1,5 @@
 package kr.ac.kopo.ctc.spring.replyBoard.service;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -170,7 +169,8 @@ public class BoardGroupServiceImpl implements BoardGroupService {
 
 	@Override
 	public Page<BoardGroup> searchBoardGroupList(String strcurrPage, String searchStr) {
-		int cPage = checkCPage(strcurrPage);
+		int cPage = checkCPage(strcurrPage)-1;
+
 		PageRequest pageable = PageRequest.of(cPage, COUNT_PER_PAGE);
 
 		Page<BoardGroup> BoardGroupList = boardGroupRepository.findByTitleContainsOrderByIdDesc(searchStr, pageable);
@@ -182,8 +182,7 @@ public class BoardGroupServiceImpl implements BoardGroupService {
 	@Override
 	public Pagination getPagination(int cPage, String keyword) {
 
-		long totalCount = boardGroupRepository.findByTitleContains(keyword).size();
-
+		long totalCount = boardGroupRepository.findByTitleContains(keyword).size(); 
 		Pagination pagination = new Pagination();
 
 		double dTotal = (double) totalCount;
@@ -204,7 +203,7 @@ public class BoardGroupServiceImpl implements BoardGroupService {
 		} else {
 			startPage = cPage - PAGE_SIZE + 1;
 		}
-
+ 
 		int endPage = startPage + PAGE_SIZE - 1;
 		int nPage = startPage + PAGE_SIZE;
 		int pPage = startPage - PAGE_SIZE;

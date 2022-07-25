@@ -2,13 +2,10 @@ package kr.ac.kopo.ctc.spring.replyBoard.service;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 
 import kr.ac.kopo.ctc.spring.replyBoard.domain.BoardGroup;
 import kr.ac.kopo.ctc.spring.replyBoard.domain.BoardItem;
-import kr.ac.kopo.ctc.spring.replyBoard.repository.BoardGroupRepository;
 
 public interface BoardGroupService {
 	
