@@ -40,7 +40,6 @@
 		</c:choose>
 	</table>
 	<input type="button" value="신규" onclick="location.href='/createOne'">
-	<input type="button" value="초기화" onclick="location.href='/deleteAll'">
 	<br>
 
 
